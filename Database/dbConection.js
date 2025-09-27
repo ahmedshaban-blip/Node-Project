@@ -1,7 +1,7 @@
 import admin from "firebase-admin"
 import fs from "fs"
 const serviceAccount = JSON.parse(
-    fs.readFileSync("../serviceKey.json")
+    fs.readFileSync("./serviceKey.json", "utf-8")
 
 )
 
