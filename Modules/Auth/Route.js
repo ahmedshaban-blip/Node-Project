@@ -1,9 +1,10 @@
+//Route.js
+
 import { Router } from "express";
-import { register, login } from "./Controller.js";
+import { register, login, getProfile } from "./Controller.js";
 import checkEmail from "../../Middleware/checkemail.js";
 import existingEmailandpassword from "../../Middleware/checkEmailandPasswordInLogin.js";
 import verifyToken from "../../Middleware/verifyToken.js";
-//Route.js
 const router = Router();
 
 
@@ -11,7 +12,7 @@ const router = Router();
 
 router.post('/register',checkEmail, register);
 
-router.post('/login',existingEmailandpassword, login, verifyToken);
+router.post('/login',existingEmailandpassword, login);
 
-
+router.get("/profile",verifyToken,getProfile,);
 export default router;

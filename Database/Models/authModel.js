@@ -4,11 +4,12 @@ import db from "../dbConection.js";
 
 
 // register function
-async function createUser(email, password) {
+async function createUser(name,email, password) {
     const userRef = db.collection('users').doc();
 
     const uid = userRef.id;
-   await userRef.set({
+    await userRef.set({
+        name,
         uid,
         email,
         password,
@@ -26,4 +27,14 @@ async function getUserByEmail(email) {
     return userSnapshot.docs[0].data();
 }
 
-export { createUser, getUserByEmail };
+
+//Get User Profile details by uid whatever in token
+async function getUserByUid(uid) {
+    const userSnapshot = await db.collection('users').where('uid', '==', uid).get();
+    if (userSnapshot.empty) {
+        return null;
+    }
+    return userSnapshot.docs[0].data();
+}
+
+export { createUser, getUserByEmail, getUserByUid };
