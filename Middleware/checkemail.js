@@ -8,7 +8,7 @@ const checkEmail = async (req, res, next) => {
     if (existingEmail.empty) {
         return next();
     }
-    return res.status(200).send("User Already Registered");
+    return res.status(409).send("User Already Registered");
 }
 
 export default checkEmail
