@@ -4,7 +4,7 @@ import db from "../dbConection.js";
 
 
 // register function
-async function createUser(name,email, password) {
+async function createUser(name,email, password, role = 'user') {
     const userRef = db.collection('users').doc();
 
     const uid = userRef.id;
@@ -13,6 +13,7 @@ async function createUser(name,email, password) {
         uid,
         email,
         password,
+        role: role,
     });
     return { uid, email };
 }

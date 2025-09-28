@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 
 export async function register(req, res) {
   try {
-    const { name,email, password } = req.body;
+    const { name,email, password, role } = req.body;
     const hashed = await bcrypt.hash(password, 10);
-    await createUser(name,email, hashed);
+    await createUser(name,email, hashed, role);
     return res.status(201).json({ message: 'User registered successfully' });
   } catch (e) {
     return res.status(500).json({ message: 'Registration failed', error: e.message });
@@ -23,7 +23,7 @@ export async function login(req, res) {
     if (!ok) return res.status(401).json({ message: 'Invalid credentials' });
 
     const token = jwt.sign(
-      { uid: user.uid, email: user.email },"secretKey",);
+      { uid: user.uid, email: user.email, role: user.role },"secretKey",);
 
     return res.status(200).json({ message: 'User logged in successfully', token });
   } catch (e) {
