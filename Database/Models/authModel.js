@@ -1,10 +1,10 @@
 //AuthModel.js
 
-import db from "../dbConection.js";
+import db from "../dbConnection.js";
 
 
 // register function
-async function createUser(name,email, password, role = 'user') {
+async function createUser(name, email, password, role = 'user') {
     const userRef = db.collection('users').doc();
 
     const uid = userRef.id;
