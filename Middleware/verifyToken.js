@@ -1,4 +1,3 @@
-
 // //verifyToken.js
 import jwt from "jsonwebtoken"
 // function verifyToken(req, res, next) {
@@ -33,6 +32,7 @@ export default function verifyToken(req, res, next) {
   if (!token) return res.status(401).json({ message: 'No token provided' });
 
   try {
+
     const decoded = jwt.verify(token, "secretKey"); 
     // 
     req.user = { uid: decoded.uid, email: decoded.email };
@@ -41,4 +41,3 @@ export default function verifyToken(req, res, next) {
     return res.status(401).json({ message: 'Invalid token' });
   }
 }
-
