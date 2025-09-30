@@ -1,4 +1,3 @@
-
 // //verifyToken.js
 import jwt from "jsonwebtoken"
 // function verifyToken(req, res, next) {
@@ -35,10 +34,9 @@ export default function verifyToken(req, res, next) {
   try {
     const decoded = jwt.verify(token, "secretKey"); // نفس السر المستخدم في login
     // decoded هي اللي انت مضيتها في login: { uid, email, iat, exp }
-    req.user = { uid: decoded.uid, email: decoded.email };
+    req.user = { uid: decoded.uid, email: decoded.email, role: decoded.role }; // حطيت تعديل الrole 
     return next();
   } catch (e) {
     return res.status(401).json({ message: 'Invalid token' });
   }
 }
-
