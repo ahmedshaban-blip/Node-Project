@@ -1,6 +1,6 @@
 // middleware
 
-import db from "../Database/dbConection.js";
+import db from "../Database/dbConnection.js";
 
 const checkEmail = async (req, res, next) => {
     const { email } = req.body;
