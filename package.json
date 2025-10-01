@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"name": "node-js-project",
 	"version": "1.0.0",
 	"description": "",
@@ -18,4 +19,27 @@
 		"jsonwebtoken": "^9.0.2",
 		"nodemon": "^3.1.10"
 	}
+=======
+  "name": "node-js-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.10"
+  }
+>>>>>>> origin/main
 }
