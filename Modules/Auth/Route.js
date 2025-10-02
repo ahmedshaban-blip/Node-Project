@@ -6,7 +6,7 @@ import checkEmail from "../../Middleware/checkemail.js";
 import existingEmailandpassword from "../../Middleware/checkEmailandPasswordInLogin.js";
 import verifyToken from "../../Middleware/verifyToken.js";
 
-//posts routing Part
+
 import {
     createPostController,
     getAllPostsController,
@@ -28,7 +28,7 @@ router.post('/login', existingEmailandpassword, login);
 router.get("/profile", verifyToken, getProfile,);
 
 
-//posts routing part
+
 
 router.post("/", verifyToken, createPostController);
 router.get("/", verifyToken, getAllPostsController);

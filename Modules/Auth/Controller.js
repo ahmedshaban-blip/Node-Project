@@ -2,8 +2,6 @@ import { createUser, getUserByEmail, getUserByUid } from "../../Database/Models/
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-//********************** */ import posts part
-
 import {
   createPost,
   getPostById,
@@ -17,20 +15,9 @@ import {
 
 export async function register(req, res) {
   try {
-    const { name,email, password, role } = req.body;
-
-    if (name.length < 3)
-      return res.status(400).json({ message: 'Name must be at least 3 characters ' });
-
-    if (password.length < 6)
-      return res.status(400).json({ message: 'Password must be at least 6 characters ' });
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      return res.status(400).json({ message: 'Invalid email' });
-
+    const { name, email, password, role } = req.body;
     const hashed = await bcrypt.hash(password, 10);
-
-    await createUser(name,email, hashed, role);
+    await createUser(name, email, hashed, role);
     return res.status(201).json({ message: 'User registered successfully' });
   } catch (e) {
     return res.status(500).json({ message: 'Registration failed', error: e.message });
@@ -43,11 +30,11 @@ export async function login(req, res) {
     const user = await getUserByEmail(email);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    const passSuccess = await bcrypt.compare(password, user.password);
-    if (!passSuccess) return res.status(401).json({ message: 'Invalid credentials' });
+    const ok = await bcrypt.compare(password, user.password);
+    if (!ok) return res.status(401).json({ message: 'Invalid credentials' });
 
     const token = jwt.sign(
-      { uid: user.uid, email: user.email, role: user.role },"secretKey",);
+      { uid: user.uid, email: user.email, role: user.role }, "secretKey",);
 
     return res.status(200).json({ message: 'User logged in successfully', token });
   } catch (e) {
@@ -60,11 +47,9 @@ export async function getProfile(req, res) {
     if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
     const { uid } = req.user;
     const user = await getUserByUid(uid);
-    if (!user) return res.status(404).json({ message: 'User not found' });
-    
-    const { password, ...S } = user;
 
-    return res.status(200).json(S);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    return res.status(200).json(user);
   } catch (e) {
     return res.status(500).json({ message: 'Profile fetch failed', error: e.message });
   }
