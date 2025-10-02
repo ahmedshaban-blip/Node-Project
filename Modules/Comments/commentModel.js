@@ -43,7 +43,7 @@ export async function updateComment(id, { content, imageURL }) {
   return updated.data();
 }
 
-// حذف تعليق
+
 export async function deleteComment(id) {
   await db.collection("comments").doc(id).delete();
 }

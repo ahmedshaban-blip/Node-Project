@@ -8,7 +8,7 @@ import {
 import db from "../../Database/dbConection.js";
 
 
-const STRICT_POST_CHECK = false;
+const STRICT_POST_CHECK = true;
 
 export async function addComment(req, res) {
   try {
@@ -20,6 +20,7 @@ export async function addComment(req, res) {
     if (!postId) return res.status(400).json({ message: "postId is required" });
     if (!content || !String(content).trim())
       return res.status(400).json({ message: "content is required" });
+
 
     if (STRICT_POST_CHECK) {
       const postDoc = await db.collection("posts").doc(postId).get();
@@ -61,7 +62,7 @@ export async function editComment(req, res) {
     const existing = await getCommentById(id);
     if (!existing) return res.status(404).json({ message: "Comment not found" });
 
-
+    
     const isOwner = existing.userId === uid;
     const isAdmin = role === "admin";
     if (!isOwner && !isAdmin) return res.status(403).json({ message: "Forbidden" });
